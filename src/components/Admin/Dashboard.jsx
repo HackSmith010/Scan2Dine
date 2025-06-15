@@ -234,7 +234,7 @@ const Dashboard = () => {
                     disabled={isGeneratingQR}
                     className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 disabled:opacity-50 flex items-center space-x-2"
                   >
-                    <FiQrCode className="w-4 h-4" />
+                    <FaQrcode className="w-4 h-4" />
                     <span>{isGeneratingQR ? 'Generating...' : 'Generate QR Code'}</span>
                   </button>
                 </div>
