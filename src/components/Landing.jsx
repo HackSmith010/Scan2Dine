@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  FiSmartphone,
-  FiTrendingUp,
-  FiStar,
-  FiMenu,
-  FiX,
-} from "react-icons/fi";
+import { FiSmartphone, FiTrendingUp, FiStar, FiMenu, FiX } from "react-icons/fi";
 import { FaQrcode } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -95,9 +89,7 @@ const Landing = () => {
               transition={{ duration: 0.5 }}
             >
               <FaQrcode className="w-8 h-8 text-primary-600" />
-              <span className="text-2xl font-bold text-gray-900">
-                Scan2Dine
-              </span>
+              <span className="text-2xl font-bold text-gray-900">Scan2Dine</span>
             </motion.div>
 
             <nav className="hidden md:flex space-x-8 items-center">
@@ -237,7 +229,7 @@ const Landing = () => {
             app downloads required for your customers.
           </motion.p>
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -249,11 +241,6 @@ const Landing = () => {
               >
                 Start Free Trial
               </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <button className="border-2 border-primary-500 text-primary-500 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors shadow-sm hover:shadow-md">
-                View Demo
-              </button>
             </motion.div>
           </motion.div>
         </div>
@@ -440,17 +427,17 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Simplified Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <FaQrcode className="w-6 h-6 text-primary-400" />
                 <span className="text-xl font-bold text-white">Scan2Dine</span>
               </div>
-              <p className="text-gray-400">
-                Making restaurant menus accessible and contactless.
+              <p className="text-gray-400 max-w-md">
+                Making restaurant menus accessible and contactless for businesses worldwide.
               </p>
             </div>
             <div>
@@ -473,70 +460,12 @@ const Landing = () => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="/signup"
                     className="text-gray-400 hover:text-white transition-colors"
                   >
-                    Demo
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Support</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Status
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Company</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Privacy
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Terms
-                  </a>
+                    Get Started
+                  </Link>
                 </li>
               </ul>
             </div>

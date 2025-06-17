@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../services/firebase';
-import { FiCheck, FiUpload, FiMapPin, FiPhone } from 'react-icons/fi';
+import { FiCheck, FiUpload, FiMapPin, FiPhone, FiPlus, FiX } from 'react-icons/fi';
 import { FaQrcode } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const OnboardingFlow = () => {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ const OnboardingFlow = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
@@ -105,14 +106,19 @@ const OnboardingFlow = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         {/* Progress Bar */}
-        <div className="mb-8">
+        <motion.div 
+          className="mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="flex items-center justify-between">
             {steps.map((step) => (
               <div key={step.number} className="flex flex-col items-center">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
                   currentStep >= step.number 
                     ? 'bg-primary-600 text-white' 
                     : 'bg-gray-200 text-gray-600'
@@ -124,17 +130,28 @@ const OnboardingFlow = () => {
             ))}
           </div>
           <div className="mt-4 bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-primary-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${(currentStep / 4) * 100}%` }}
-            ></div>
+            <motion.div 
+              className="bg-primary-600 h-2 rounded-full"
+              initial={{ width: '0%' }}
+              animate={{ width: `${(currentStep / 4) * 100}%` }}
+              transition={{ duration: 0.5 }}
+            ></motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <motion.div 
+          className="bg-white rounded-xl shadow-lg border border-gray-200 p-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           {/* Step 1: Restaurant Details */}
           {currentStep === 1 && (
-            <div className="animate-fade-in">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Restaurant Details</h2>
               <div className="space-y-6">
                 <div>
@@ -148,7 +165,7 @@ const OnboardingFlow = () => {
                       name="address"
                       value={formData.address}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="pl-10 w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                       placeholder="Enter your restaurant address"
                     />
                   </div>
@@ -165,7 +182,7 @@ const OnboardingFlow = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="pl-10 w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                       placeholder="Enter phone number"
                     />
                   </div>
@@ -180,17 +197,21 @@ const OnboardingFlow = () => {
                     value={formData.description}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                     placeholder="Tell customers about your restaurant..."
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Step 2: Branding */}
           {currentStep === 2 && (
-            <div className="animate-fade-in">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Restaurant Branding</h2>
               <div className="space-y-6">
                 <div>
@@ -204,7 +225,7 @@ const OnboardingFlow = () => {
                       name="logo"
                       value={formData.logo}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="pl-10 w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                       placeholder="https://example.com/logo.png"
                     />
                   </div>
@@ -214,7 +235,11 @@ const OnboardingFlow = () => {
                 </div>
 
                 {formData.logo && (
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <motion.div 
+                    className="bg-gray-50 p-4 rounded-lg border border-gray-200"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
                     <p className="text-sm font-medium text-gray-700 mb-2">Logo Preview:</p>
                     <img 
                       src={formData.logo} 
@@ -224,15 +249,19 @@ const OnboardingFlow = () => {
                         e.target.style.display = 'none';
                       }}
                     />
-                  </div>
+                  </motion.div>
                 )}
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Step 3: Menu Categories */}
           {currentStep === 3 && (
-            <div className="animate-fade-in">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Menu Categories</h2>
               <p className="text-gray-600 mb-6">
                 Set up your menu categories. You can always modify these later.
@@ -240,98 +269,143 @@ const OnboardingFlow = () => {
               
               <div className="space-y-4">
                 {formData.categories.map((category, index) => (
-                  <div key={index} className="flex items-center space-x-3">
+                  <motion.div 
+                    key={index} 
+                    className="flex items-center space-x-3"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                  >
                     <input
                       type="text"
                       value={category}
                       onChange={(e) => handleCategoryChange(index, e.target.value)}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                       placeholder="Category name"
                     />
                     {formData.categories.length > 1 && (
                       <button
                         type="button"
                         onClick={() => removeCategory(index)}
-                        className="text-red-600 hover:text-red-800 px-2 py-1"
+                        className="text-red-600 hover:text-red-800 px-2 py-1 transition-colors"
                       >
-                        Remove
+                        <FiX className="w-5 h-5" />
                       </button>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
                 
-                <button
+                <motion.button
                   type="button"
                   onClick={addCategory}
-                  className="text-primary-600 hover:text-primary-800 font-medium"
+                  className="flex items-center text-primary-600 hover:text-primary-800 font-medium transition-colors"
+                  whileHover={{ scale: 1.02 }}
                 >
-                  + Add Category
-                </button>
+                  <FiPlus className="mr-1" /> Add Category
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Step 4: Complete Setup */}
           {currentStep === 4 && (
-            <div className="animate-fade-in text-center">
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <div className="mb-6">
-                <div className="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <motion.div 
+                  className="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >
                   <FiCheck className="w-8 h-8 text-secondary-600" />
-                </div>
+                </motion.div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Almost Done!</h2>
                 <p className="text-gray-600">
                   Your restaurant profile is ready. You can now start adding menu items and generate your QR code.
                 </p>
               </div>
 
-              <div className="bg-gray-50 p-6 rounded-lg mb-6">
+              <motion.div 
+                className="bg-gray-50 p-6 rounded-lg border border-gray-200 mb-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
                 <h3 className="font-semibold text-gray-900 mb-4">What's Next?</h3>
                 <ul className="text-left space-y-2 text-gray-600">
-                  <li className="flex items-center">
+                  <motion.li 
+                    className="flex items-center"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
                     <FiCheck className="w-4 h-4 text-secondary-600 mr-2" />
                     Add your first menu items
-                  </li>
-                  <li className="flex items-center">
+                  </motion.li>
+                  <motion.li 
+                    className="flex items-center"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
                     <FiCheck className="w-4 h-4 text-secondary-600 mr-2" />
                     Generate your restaurant's QR code
-                  </li>
-                  <li className="flex items-center">
+                  </motion.li>
+                  <motion.li 
+                    className="flex items-center"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 }}
+                  >
                     <FiCheck className="w-4 h-4 text-secondary-600 mr-2" />
                     Print and place QR codes on tables
-                  </li>
+                  </motion.li>
                 </ul>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8">
-            <button
+          <motion.div 
+            className="flex justify-between mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <motion.button
               onClick={prevStep}
               disabled={currentStep === 1}
-              className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              whileHover={{ scale: currentStep !== 1 ? 1.02 : 1 }}
             >
               Previous
-            </button>
+            </motion.button>
 
             {currentStep < 4 ? (
-              <button
+              <motion.button
                 onClick={nextStep}
-                className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+                className="px-6 py-2 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-lg hover:from-primary-600 hover:to-secondary-600 transition-all shadow-md hover:shadow-lg"
+                whileHover={{ scale: 1.02 }}
               >
                 Next
-              </button>
+              </motion.button>
             ) : (
-              <button
+              <motion.button
                 onClick={completeOnboarding}
                 disabled={isLoading}
-                className="px-6 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 disabled:opacity-50"
+                className="px-6 py-2 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-lg hover:from-primary-600 hover:to-secondary-600 transition-all shadow-md hover:shadow-lg disabled:opacity-50"
+                whileHover={{ scale: isLoading ? 1 : 1.02 }}
               >
                 {isLoading ? 'Setting up...' : 'Complete Setup'}
-              </button>
+              </motion.button>
             )}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
